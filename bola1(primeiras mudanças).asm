@@ -48,14 +48,14 @@ bola1:  call tec ;chama rotina do teclado
        jz mudaNota1		;segunda alteração 
        jmp bola1
 mudaNota1: cmp nota1,0
-	jmp mudaNota2		;se nota1 não for 0, vai pro loop da nota2
+	jz mudaNota2		;se nota1 não for 0, vai pro loop da nota2
 	mov nota1,[livre]
 	mov cl,3d
 	mov livre,0
 	call limpa
 	jmp bola1
 mudaNota2: cmp nota2,0
-	jmp mudaNota3		;se nota2 não for 0, vai pro loop da nota3
+	jz mudaNota3		;se nota2 não for 0, vai pro loop da nota3
 	mov nota2,[livre]
 	mov cl,3d
 	mov livre,0
