@@ -108,6 +108,8 @@ vamosPrintar:
 	jz AntesDoFim	;os prints tao em al, so codar pensando em colocar os valores em al e chamar 
 			;o video
 	pop al
+	clc
+	sum [al],30	;somando 30 pra voltar pra o valor em ascii antes do print
 	call video
 	dec cl
 	jmp vamosPrintar
