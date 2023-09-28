@@ -56,6 +56,7 @@ mudaNota1: lea si, nota1
 	mov cl,3d
 	mov [di],0
 	call limpa
+	call pos
 	jmp bola1
 mudaNota2: lea si, nota2	
 	cmp [si],0
@@ -65,12 +66,14 @@ mudaNota2: lea si, nota2
 	mov cl,3d
 	mov [di],0
 	call limpa
+	call pos
 	jmp bola1
 mudaNota3: lea si,nota3
 	lea di,livre
 	mov [si],[di]	;temos as 3 notas agora
 	mov [di],0
 	call limpa	;daremos prosseguimento ao codigo de forma normal, agora faremos a soma
+	call pos
 	jmp calcula
 calcula:
 	lea di,livre	;vamos deixar di fixo em livre, que é a variavel onde haverão os calculos
@@ -87,12 +90,12 @@ calcula:
 	mov ax,3d		
 	div [di]	;di continua apontando para livre
 	mov [si],[ah]	;duas coisas 1)si continua apontando para nota3, ideia é que o conteudo esteja
-;sendo colocado em nota3 2)aqui estamos colocando o resto dentro de nota3
-;a ideia eh que aki ja temos o valor da divisão e o resto, então agr precisamos voltar os valores 
-;para ascii
+			;sendo colocado em nota3 2)aqui estamos colocando o resto dentro de nota3
+			;a ideia eh que aki ja temos o valor da divisão e o resto, então 
+			;agr precisamos voltar os valores para ascii
 	mov cl,0
 botaNaPilha:		;aki a gente vai colocar na pilha os valores na ordem em que eles vão ser
-;printados (por ser pilha ordem inversa no caso)
+			;printados (por ser pilha ordem inversa no caso)
 	mov AX,10d
 	div [di]
 	push ah
@@ -102,8 +105,36 @@ botaNaPilha:		;aki a gente vai colocar na pilha os valores na ordem em que eles 
 	jmp botaNaPilha
 vamosPrintar:
 	cmp cl,0
-	jz fim	;os prints tao em al, so codar pensando em colocar os valores em al e chamar o video
-	
+	jz AntesDoFim	;os prints tao em al, so codar pensando em colocar os valores em al e chamar 
+			;o video
+	pop al
+	call video
+	dec cl
+	jmp vamosPrintar
+AntesDoFim:
+	lea si,nota3	;vamos pegar agora o resto da nossa primeira divisão para tratar ele
+	cmp nota3,1	;vai pular pra solução 0 se menor, 1 se igual e 2 se maior
+	jl caso0
+	jz caso1
+	jg caso2
+caso0:			;printa '.' e um número decimal equivalente ao resto (0 se 0, 3 se 1, 7 se 2)
+	mov al,'.'
+	call video
+	mov al,30h
+	call video
+	jmp fim
+caso1:
+	mov al,'.'
+	call video
+	mov al,33h
+	call video
+	jmp fim
+caso2:
+	mov al,'.'
+	call video
+	mov al,37h
+	call video
+	jmp fim
 bola3: lea di,mens2
        mov al,0dh
        call video
@@ -187,15 +218,6 @@ converteAscii proc near
       ret	
 converteAscii endp
 
-converteBin proc near
-	
-
-
-
-
-	ret
-converteBin endp	
-	
 limpa proc near
       push AX
       push BX
