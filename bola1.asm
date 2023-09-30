@@ -22,16 +22,16 @@ teste	proc	far
 	mov	ds,ax
 	mov	es,ax	;ds e es segmento de dados com valor dados
 	call	limpa
-	mov	dx,0
+	mov	dx,0d
 	call	pos
 	lea si,livre
-	mov [si],0
+	mov [si],0d
 	lea si,nota1
-	mov [si],0
+	mov [si],0d
 	lea si,nota2
-	mov [si],0
+	mov [si],0d
 	lea si,nota3
-	mov [si],0
+	mov [si],0d
 	lea	bx, mens1
 	lea	si, numeros
 	mov	cl,3d
