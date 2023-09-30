@@ -143,7 +143,7 @@ vamosPrintar:
 	pop BX
 	clc
 	mov al,bl
-	add al,30d	;somando 30 pra voltar pra o valor em ascii antes do print
+	add al,30h	;somando 30 pra voltar pra o valor em ascii antes do print
 	call video
 	dec cl
 	jmp vamosPrintar
@@ -230,7 +230,7 @@ converteAscii proc near
       mul [di]		;a cada vez q tem um novo número tem que multiplicar o existente por 10
       mov [di],ax
       clc
-      sub [si],30d		;subtraindo por 30 pra pegar o binario
+      sub [si],30h		;subtraindo por 30 pra pegar o binario
       clc
       mov ax,[di]
       add ax,[si]
