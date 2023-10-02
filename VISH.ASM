@@ -3,10 +3,10 @@ pilha segment stack
 pilha ends
 
 dados segment
-mens1 db "Digite a primeira nota: #"
+mens1 db "Digite a primeiraS nota: #"
 mens2 db "Digite a segunda nota: #"
 mens3 db "Digite a terceira nota: #"
-mensE db "Você não digitou um número!#"
+mensE db "Voce nao digitou um numero!#"
 
 nota1 db 3 dup(?)
 nota2 db 3 dup(?)
@@ -31,32 +31,34 @@ programa proc far
         call pos
         mov ch, 3d ;Diferencia entre as três notas
 
-notas:  cmp ch, 3d
-        jz verN1
-        cmp ch, 2d
-        jz verN2
+notas:  clc
         cmp ch, 1d
         jz verN3
-        cmp ch, 0d
-        jz converter
+        cmp ch, 2d
+        jz verN2
+        cmp ch, 3d
+        jz verN1
+        fim
 verN1:  lea bx, mens1
         lea si, nota1
         
+        dec ch
         mov cl, 3d
         jmp exibir
-        jmp verN2
+        
 
 verN2: lea bx, mens2
         lea si, nota2
+        dec ch
         mov cl, 3d
-        call exibir
-        jmp verN3
+        jmp exibir
 
 verN3: lea bx, mens3
         lea si, nota3
+        dec ch
         mov cl, 3d
-        call exibir
-        call
+        jmp exibir
+        
 
 converter: call AsctoBin
 
@@ -80,7 +82,7 @@ teclar: call teclado
         call video
         inc si
         dec cl
-        jz fim
+        jz notas
         jmp teclar
 
 errado: lea di, mensE
@@ -174,9 +176,9 @@ subtrair1:  xor ax, ax
             sub ax, 30h
             mul bl
             add dl, al
-            mov [di], dl
-            mov  ax, bl
-            mov  bl, 10
+            ;mov [di], dl
+            ;mov  al, bl
+            ;mov  bl, 10
             div bl
             mov bl, al
             pop dx
@@ -185,7 +187,7 @@ subtrair1:  xor ax, ax
             pop ax
             inc si
             dec cl
-            jz ret
+            jz fimS
             jmp subtrair1
             mov bl, 100
             lea si, nota2
@@ -199,9 +201,9 @@ subtrair2:  xor ax, ax
             sub ax, 30h
             mul bl
             add dl, al
-            mov [di], dl
-            mov  ax, bl
-            mov  bl, 10
+            ;mov [di], dl
+            ;mov  al, bl
+            ;mov  bl, 10
             div bl
             mov bl, al
             pop dx
@@ -210,7 +212,7 @@ subtrair2:  xor ax, ax
             pop ax
             inc si
             dec cl
-            jz ret
+            jz fimS
             jmp subtrair2
             mov bl, 100
             lea si, nota3
@@ -219,14 +221,15 @@ subtrair2:  xor ax, ax
             mov [di], dl
             mov cl, 3
             clc
+fimS: ret
 subtrair3:  xor ax, ax
             mov ax, [si]
             sub ax, 30h
             mul bl
             add dl, al
-            mov [di], dl
-            mov  ax, bl
-            mov  bl, 10
+            ;mov [di], dl
+            ;mov  al, bl
+            ;mov  bl, 10
             div bl
             mov bl, al
             pop dx
@@ -235,7 +238,7 @@ subtrair3:  xor ax, ax
             pop ax
             inc si
             dec cl
-            jz ret
+            jz fimS
             jmp subtrair3
 codigo ends
     end programa
