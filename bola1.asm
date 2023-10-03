@@ -203,7 +203,7 @@ pos proc near
     ret
 pos endp
 
-tec	proc	near
+tec	proc	near      ;pega o que foi digitado e põe em al
 	push	di
 	push	bx
 	push	si
