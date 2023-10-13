@@ -3,9 +3,9 @@ pilha segment stack
 pilha ends
 
 dados segment
-mens1 db "Digite a primeirissima nota (entre 0 e 100): #"
-mens2 db "Digite a segundissima nota (entre 0 e 100): #"
-mens3 db "Digite a terceirissima nota (entre 0 e 100): #"
+mens1 db "Digite a primeirissima nota (entre 000 e 100): #"
+mens2 db "Digite a segundissima nota (entre 000 e 100): #"
+mens3 db "Digite a terceirissima nota (entre 000 e 100): #"
 mensMe db "Esta eh sua media: #"
 mensA db "Bem vindo ao ceu: voce foi aprovado!!#"
 mensF db "Voce tem uma chance!! Para ser aprovado na prova final precisa tirar #"
