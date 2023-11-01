@@ -94,7 +94,7 @@ exibir: mov al, [bx]
         cmp cl, 0
         jz notas
         jmp exibir
-fim:    ret
+fim:    jmp fimP
 teclar: call teclado
         cmp al,0dh
         jz fim ;Se tiver apertado enter, é o fim do programa 
